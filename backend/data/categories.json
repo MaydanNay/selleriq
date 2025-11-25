@@ -48,7 +48,119 @@
                     "sale_amount": 392091907,
                     "is_has_subcategory": 1,
                     "amount_change_prc": -17,
-                    "restrict_type": 3
+                    "restrict_type": 3,
+                    "items": [
+                        {
+                            "category_id": "00054",
+                            "parent_category_id": "00126",
+                            "category_name": "Фитнес-браслеты",
+                            "sale_qty": 8246,
+                            "sale_amount": 469052896,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 52,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "00056",
+                            "parent_category_id": "00126",
+                            "category_name": "Электронные книги",
+                            "sale_qty": 1873,
+                            "sale_amount": 215710275,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 8,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "01583",
+                            "parent_category_id": "00126",
+                            "category_name": "Рации и радиостанции",
+                            "sale_qty": 11067,
+                            "sale_amount": 163913359,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 1,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "03135",
+                            "parent_category_id": "00126",
+                            "category_name": "Чехлы для электронных книг",
+                            "sale_qty": 769,
+                            "sale_amount": 6218308,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": -7,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "03137",
+                            "parent_category_id": "00126",
+                            "category_name": "Bluetooth-трекеры",
+                            "sale_qty": 4873,
+                            "sale_amount": 35420546,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": -4,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "03250",
+                            "parent_category_id": "00126",
+                            "category_name": "Системы нагревания",
+                            "sale_qty": 9017,
+                            "sale_amount": 144825024,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 42,
+                            "restrict_type": 1
+                        },
+                        {
+                            "category_id": "03346",
+                            "parent_category_id": "00126",
+                            "category_name": "Аксессуары для систем нагревания",
+                            "sale_qty": 276,
+                            "sale_amount": 1459675,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 2,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "03832",
+                            "parent_category_id": "00126",
+                            "category_name": "Аксессуары для раций и радиостанций",
+                            "sale_qty": 7752,
+                            "sale_amount": 14242798,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 0,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "06227",
+                            "parent_category_id": "00126",
+                            "category_name": "Электронные переводчики",
+                            "sale_qty": 336,
+                            "sale_amount": 12659702,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 13,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "06629",
+                            "parent_category_id": "00126",
+                            "category_name": "Смарт-кольца",
+                            "sale_qty": 481,
+                            "sale_amount": 38863802,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 181,
+                            "restrict_type": 0
+                        },
+                        {
+                            "category_id": "09266",
+                            "parent_category_id": "00126",
+                            "category_name": "Читающие машины",
+                            "sale_qty": 0,
+                            "sale_amount": 0,
+                            "is_has_subcategory": 0,
+                            "amount_change_prc": 0,
+                            "restrict_type": 0
+                        }
+                    ]
                 },
                 {
                     "category_id": "00138",

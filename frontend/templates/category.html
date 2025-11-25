@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Товары — {{ category_name }}</title>
+  <link rel="stylesheet" href="/static/css/niches.css" />
+  <style>
+    .summary { display:flex; gap:20px; padding:16px; background:#fff; border-radius:8px; margin:16px; }
+    .summary .item { flex:1; padding:10px; border:1px solid #eee; border-radius:8px; text-align:center; }
+    .summary .value { font-weight:700; font-size:18px; margin-top:6px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 16px; padding: 16px; }
+    .card { border: 1px solid #eee; border-radius: 8px; overflow: hidden; background:#fff; display:flex; flex-direction:column; }
+    .card img { width:100%; height:160px; object-fit:cover; background:#f7f7f7; }
+    .card-body { padding: 10px; display:flex; flex-direction:column; gap:6px; flex:1; }
+    .price { font-weight:700; }
+    .card-foot { display:flex; justify-content:space-between; align-items:center; padding: 8px 10px; border-top:1px solid #f0f0f0; }
+    .btn-link { text-decoration:none; color:#0a66c2; }
+    .sku { color:#666; font-size:13px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header style="padding:16px;">
+      <a href="/niches">← назад</a>
+      <h1>Товары - {{ category_name }}</h1>
+      <p>Найдено: {{ products|length }}</p>
+    </header>
+
+    <!-- Блок общих данных -->
+    <section class="summary">
+      <div class="item">
+        <div>Продажи</div>
+        <div class="value">{{ summary.total_sales_qty or 0 }} <small>шт.</small></div>
+      </div>
+      <div class="item">
+        <div>Выручка</div>
+        <div class="value">{{ "{:,}".format(summary.total_revenue_amount or 0) }} ₸</div>
+      </div>
+      <div class="item">
+        <div>Товары</div>
+        <div class="value">{{ summary.total_products or 0 }} <small>шт.</small></div>
+      </div>
+      <div class="item">
+        <div>Продавцы</div>
+        <div class="value">{{ summary.total_sellers_est or 0 }} <small>шт.</small></div>
+      </div>
+      <div class="item">
+        <div>Бренды</div>
+        <div class="value">{{ summary.unique_brands or 0 }} <small>шт.</small></div>
+      </div>
+    </section>
+
+    <section class="grid">
+{% for p in products %}
+  <article class="card">
+    {% set imgs = p._images or [] %}
+    {% if imgs and imgs[0] %}
+      {% set src = imgs[0].get('small') or imgs[0].get('medium') or imgs[0].get('large') %}
+      {% if src %}
+        <img src="{{ src }}" alt="{{ p.product_name }}">
+      {% else %}
+        <div style="height:160px;display:flex;align-items:center;justify-content:center;color:#999;">
+          Нет изображения
+        </div>
+      {% endif %}
+    {% else %}
+      <div style="height:160px;display:flex;align-items:center;justify-content:center;color:#999;">
+        Нет изображения
+      </div>
+    {% endif %}
+
+    <div class="card-body">
+      <div class="title">{{ p.product_name }}</div>
+      <div class="price">{{ "{:,}".format(p.sale_price or 0) }} ₸</div>
+      <div class="sku">Артикул: {{ p.product_code }}</div>
+      <div style="margin-top:auto">
+        <a class="btn-link" href="{{ p.product_url }}" target="_blank" rel="noopener">Открыть на Kaspi</a>
+      </div>
+    </div>
+  </article>
+{% endfor %}
+    </section>
+  </main>
+</body>
+</html>
