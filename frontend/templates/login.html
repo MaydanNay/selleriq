@@ -1,0 +1,36 @@
+<!-- frontend/templates/login.html -->
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Вход</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="auth-page">
+    <div class="card">
+      <h1>Войти</h1>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/login" class="form">
+        <label>Логин
+          <input name="username" required value="{{ values.username or '' }}" />
+        </label>
+
+        <label>Пароль
+          <input type="password" name="password" required />
+        </label>
+
+        <button class="btn" type="submit">Войти</button>
+      </form>
+
+      <p class="muted">Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+    </div>
+  </main>
+</body>
+</html>

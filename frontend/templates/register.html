@@ -1,0 +1,44 @@
+<!-- frontend/templates/register.html -->
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="auth-page">
+    <div class="card">
+      <h1>Создать аккаунт</h1>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/register" class="form">
+        <label>Логин
+          <input name="username" required value="{{ values.username or '' }}" />
+        </label>
+
+        <label>Email
+          <input type="email" name="email" required value="{{ values.email or '' }}" />
+        </label>
+
+        <label>Пароль
+          <input type="password" name="password" required minlength="6" />
+        </label>
+
+        <label>Подтвердите пароль
+          <input type="password" name="password_confirm" required minlength="6" />
+        </label>
+
+        <button class="btn" type="submit">Зарегистрироваться</button>
+      </form>
+
+      <p class="muted">Уже есть аккаунт? <a href="/login">Войти</a></p>
+    </div>
+  </main>
+</body>
+</html>

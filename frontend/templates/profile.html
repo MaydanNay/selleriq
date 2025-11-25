@@ -1,0 +1,21 @@
+<!-- frontend/templates/profile.html -->
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Профиль</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="center-page">
+    <div class="card profile">
+      <h2>Привет, {{ user.username }}!</h2>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Зарегистрирован:</strong> {{ user.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+      <a class="btn" href="/logout">Выйти</a>
+    </div>
+  </main>
+</body>
+</html>

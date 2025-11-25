@@ -1,0 +1,54 @@
+<!-- frontend/templates/niches.html -->
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Выбор ниши</title>
+  <link rel="stylesheet" href="/static/css/niches.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Выберите нишу</h1>
+      <p class="hint">Клик по категории — раскрыть подкатегории. Клик по подкатегории — выбрать.</p>
+    </header>
+
+    <section class="categories">
+      {% for cat in categories %}
+        <article class="cat-card" data-id="{{ cat.category_id }}">
+          <div class="cat-head">
+            <button class="toggle" data-id="{{ cat.category_id }}">▸</button>
+            <div class="cat-info">
+              <div class="cat-name">{{ cat.category_name }}</div>
+              <div class="cat-meta">Продаж: {{ cat.sale_qty or 0 }} · Сумма: {{ cat.sale_amount or 0 }}</div>
+            </div>
+          </div>
+
+          {% set items = cat.items.data if cat.items and cat.items.data else [] %}
+          <div class="sublist" data-parent="{{ cat.category_id }}">
+            {% if items %}
+              {% for sub in items %}
+                <label class="subitem" data-id="{{ sub.category_id }}">
+                  <input type="checkbox" class="sub-checkbox" value="{{ sub.category_id }}" />
+                  <span class="sub-name">{{ sub.category_name }}</span>
+                </label>
+              {% endfor %}
+            {% else %}
+              <div class="no-sub">Подкатегорий нет</div>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+
+    <footer class="actions">
+      <button id="saveBtn" class="btn">Сохранить выбор</button>
+      <span id="status" class="status"></span>
+    </footer>
+  </main>
+
+  <script src="/static/js/niches.js" defer></script>
+</body>
+</html>
