@@ -3,4 +3,4 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
 git add .
 git commit -m "."
-git push 
+git push -u origin main
