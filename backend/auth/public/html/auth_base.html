@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preload" as="image" href="/common/images/f.webp">
+    
+    <!-- Быстрая синхронная проверка WebP -->
+    <script>
+        (function(){
+            var img = new Image();
+            img.onload = function(){
+                if (img.width === 1 && img.height === 1) {
+                    document.documentElement.classList.add('webp');
+                } else {
+                    document.documentElement.classList.add('no-webp');
+                }
+            };
+            img.onerror = function(){ document.documentElement.classList.add('no-webp'); };
+            img.src = "data:image/webp;base64,UklGRiIAAABXRUJQVlA4TAYAAAAvAAAAAAfQ//73v/+BiOh/AAA=";
+        })();
+    </script>
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="icon" type="image/x-icon" href="/common/favicons/favicon.ico">
+    
+    <link rel="stylesheet" href="/common/css/global.css">
+    <link rel="stylesheet" href="/common/css/base.css">
+    <link rel="stylesheet" href="/auth/css/logo.css">
+    <link rel="stylesheet" href="/auth/css/auth_form.css">
+    <link rel="stylesheet" href="/auth/css/input-phone.css">
+    <link rel="stylesheet" href="/auth/css/auth_button.css">
+    
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<div class="logo-container">
+    <img src="/common/images/logo.ico" alt="Logo" class="logo">
+    <p class="logo-text">Это место, где <br> AI становится частью команды</p>
+</div>
+
+<body>
+    <div class="mobile-container">
+        {% block content %}
+        {% endblock %}
+
+        <script src="/auth/js/togglePassword.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+        <script src="/auth/js/inputPhone.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                initPhoneInput();
+            });
+        </script>
+        <!-- <script src="/common/js/webpCheck.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                initWebPDetection();
+            });
+        </script> -->
+
+        {% block extra_js %}
+        {% endblock %}
+    </div>
+</body>
+</html>

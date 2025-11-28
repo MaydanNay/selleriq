@@ -1,0 +1,807 @@
+/* src/modules/base/public/css/knowledge.css */
+
+:root{
+    --bg: #050505;
+    --card: #0f0f10;
+    --muted: #9aa0a6;
+    --accent: #ef476f;
+    --pill: #1b1b1c;
+    --glass: rgba(255,255,255,0.02);
+    --radius: 12px;
+    --sidebar-w: 260px;
+    --max-centered-w: 1100px;
+    --transition: 180ms;
+    font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* page base */
+html,body{
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: #efefef;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" on;
+}
+
+
+/* header */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:18px 28px;
+    gap:12px;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+}
+.header .header-title{
+    font-size:18px;
+    font-weight:700;
+    letter-spacing: -0.2px;
+}
+.header .header-right{ display:flex; gap:10px; align-items:center; }
+.header .notification-button,
+.header .close-button{
+    background:transparent; border:0; padding:8px; border-radius:8px; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition: background var(--transition);
+}
+.header .notification-button img,
+.header .close-button img{ width:18px; height:18px; }
+
+/* layout: center card */
+.ai-settings{
+    max-width: var(--max-centered-w);
+    margin: 26px auto;
+    padding: 22px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.014), rgba(255,255,255,0.006));
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    min-height: 180px;
+}
+
+/* section header */
+.ai-settings h2 {
+    margin: 0;
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* info line */
+.ai-settings .info-line{ color:var(--muted); font-size:13px; margin-bottom:12px; }
+
+/* top block toggles */
+.block-toggle{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+}
+.block-toggle button{
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.03);
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    color:#e8e8e8;
+    font-weight:600;
+    transition: background var(--transition), transform var(--transition);
+}
+.block-toggle button.active{
+    background: rgba(239,71,111,0.08);
+    border-color: rgba(239,71,111,0.18);
+    box-shadow: 0 8px 24px rgba(239,71,111,0.04);
+    transform: translateY(-2px);
+}
+
+/* add source area */
+.add-source{ display:flex; flex-direction:column; gap:12px; margin-top:6px; }
+.add-row{ display:flex; gap:10px; align-items:center; width:100%; }
+
+/* file chooser */
+.file-chooser{
+    display:flex; align-items:center; gap:12px; width:100%;
+}
+#choose-file{
+    border-radius:10px;
+    padding:10px 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.03);
+    cursor:pointer;
+    font-weight:700;
+}
+.file-name{
+    color:var(--muted);
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* buttons */
+.small-action{
+    border-radius:10px;
+    padding:8px 12px;
+    font-weight:700;
+    border:1px solid rgba(255,255,255,0.03);
+    background:transparent;
+    color:#eee;
+    cursor:pointer;
+    transition: transform var(--transition), background var(--transition), opacity var(--transition);
+}
+.small-action.primary{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+}
+.small-action.primary[disabled],
+.small-action[disabled]{
+    opacity:0.5;
+    pointer-events:none;
+    transform:none;
+}
+
+/* ghost button (used in template) */
+.btn-ghost{
+    border-radius:10px;
+    padding:8px 10px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.02);
+    color:#ddd;
+    cursor:pointer;
+}
+
+/* source list */
+.source-list{
+    margin-top: 18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    min-height:120px;
+}
+.source-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px;
+    border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.004));
+    border:1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+.source-item .left{ display:flex; flex-direction:column; gap:6px; min-width:0; }
+.source-item .title{ font-weight:700; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.source-item .source-meta{ color:var(--muted); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* controls on item */
+.source-item .controls{ display:flex; gap:10px; align-items:center; min-width:220px; }
+.progress-bar{
+    width:160px; height:8px; background:rgba(255,255,255,0.02); border-radius:8px; overflow:hidden;
+    border:1px solid rgba(255,255,255,0.01);
+}
+.progress-fill{
+    height:100%; width:0; background: linear-gradient(90deg, rgba(239,71,111,0.9), rgba(239,71,111,0.6));
+    transition: width 400ms ease;
+}
+
+/* actions */
+.source-item .actions{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.source-item .actions .btn-ghost{ padding:8px 10px; font-weight:600; }
+
+/* empty / loading */
+.small-muted{ color:var(--muted); font-size:13px; }
+
+/* viewer modal */
+.viewer-backdrop{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:12200;
+    padding:28px;
+}
+.viewer-backdrop[style*="display:flex"], .viewer-backdrop.visible{ display:flex; }
+.viewer{
+    width: min(1100px, 96%);
+    max-height: 86vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 22px 80px rgba(0,0,0,0.7);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+.v-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; border-bottom:1px solid rgba(255,255,255,0.02);
+    background: linear-gradient(180deg, rgba(255,255,255,0.006), transparent);
+}
+.v-header #viewer-title{ font-weight:800; font-size:16px; }
+.v-header a.btn-ghost{ margin-right:8px; display:none; }
+.v-body{
+    padding:14px;
+    overflow:auto;
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+}
+
+/* iframe preview */
+.v-body iframe{ width:100%; height:62vh; border:0; border-radius:6px; }
+
+/* small helpers */
+.actions .btn-ghost:active,
+.small-action:active{ transform: translateY(1px); }
+
+/* responsive: desktop-first but safe for smaller */
+@media (max-width: 1100px){
+    .ai-settings{ margin:18px; padding:16px; border-radius:10px; }
+    .viewer{ width:100%; max-height:90vh; }
+}
+
+/* keyboard hint */
+.hint-esc{ color:var(--muted); font-size:13px; }
+
+/* file preview container */
+#file-preview-container, #preview-container { margin-top:8px; }
+
+/* tooltips and micro UI */
+a, button{ -webkit-tap-highlight-color: transparent; outline: none; }
+
+/* scrollbar */
+.source-list::-webkit-scrollbar, .v-body::-webkit-scrollbar { height:8px; width:8px; }
+.source-list::-webkit-scrollbar-thumb, .v-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.03); border-radius:6px; }
+
+/* small accessibility focus */
+button:focus, a:focus { box-shadow: 0 0 0 4px rgba(239,71,111,0.06); border-radius:8px; }
+
+/* lightweight transitions for list updates */
+.source-item { transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition); }
+.source-item.enter { transform: translateY(6px); opacity:0; }
+.source-item.enter.active { transform: translateY(0); opacity:1; }
+
+/* compact view for many sources */
+.source-list.compact .progress-bar{ width:110px; }
+
+/* helper classes used in template */
+.hidden{ display:none !important; }
+.text-danger{ color:#ff6b6b; }
+
+/* grid: автоматически подстраивается под ширину */
+.note-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+  align-items: start;
+}
+
+/* карточка: вертикальный заголовок (badge сверху, затем title) */
+.note-head{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* чуть уменьшим min-height чтобы карточки не были слишком высокими */
+.note-card{
+  position: relative;              /* нужно для абсолютных элементов внутри */
+  padding: 18px 14px 14px 14px;    /* чуть больше сверху, чтобы не было наложения */
+  min-height: 100px;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+/* badge сверху — визуальный отступ снизу */
+/* тип в левом верхнем углу */
+.note-badge{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  padding:6px 8px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  color:var(--muted);
+  z-index: 6;
+}
+
+/* title чуть крупнее и с переносом строк (не nowrap) */
+.note-title{
+  font-size:15px;
+  font-weight:800;
+  white-space: normal;       /* позволяем перенос */
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.2em;         /* 2 строки примерно */
+}
+
+/* excerpt остаётся под заголовком */
+.note-excerpt{ margin-top: 4px; }
+
+/* меню-кнопка в правом верхнем углу (трёхточки) */
+.card-menu-btn{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.02);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#ddd;
+  z-index: 7;
+}
+
+/* popup меню рядом с кнопкой */
+.card-menu-popup{
+  position: absolute;
+  top: 42px;
+  right: 10px;
+  min-width:140px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius:10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  padding:6px;
+  display:none;
+  z-index: 30;
+}
+.card-menu-popup.visible{ display:block; }
+.card-menu-popup button{
+  width:100%;
+  text-align:left;
+  padding:8px 10px;
+  border-radius:8px;
+  background:transparent;
+  border:0;
+  color:#eee;
+  cursor:pointer;
+  font-weight:700;
+}
+.card-menu-popup button:hover{ background: rgba(255,255,255,0.02); }
+
+/* pinned визуал: левый акцент + отметка */
+.note-card.pinned{
+  border-left: 4px solid var(--accent);
+}
+.note-card .pinned-label{
+  position:absolute;
+  top:12px;
+  left: calc(12px + 6px + 4px); /* чуть справа от бейджа */
+  font-size:11px;
+  color:var(--accent);
+  font-weight:700;
+  z-index:5;
+}
+
+/* при наведении меню — не дергать карточку */
+.note-card:hover .card-menu-btn{ transform: none; }
+
+/* карточка кликабельна */
+.note-card.clickable{ cursor: pointer; }
+
+/* Утилитарные классы, если их нет в основном CSS */
+.hidden { display: none !important; }
+.mt-8 { margin-top: 8px !important; }
+.mb-8 { margin-bottom: 8px !important; }
+.mr-8 { margin-right: 8px !important; }
+
+/* иконки 16x16 (для кнопок в хэдере) */
+.icon-16 { width: 16px; height: 16px; display:inline-block; }
+
+/* модалка: поля */
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.02);
+  background: transparent;
+  color: #eee;
+  box-sizing: border-box;
+}
+.modal-textarea {
+  width: 100%;
+  height: 220px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.02);
+  background: transparent;
+  color: #eee;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* заголовок модалки */
+.add-panel-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.modal-title { margin:0; font-size:18px; font-weight:700; }
+
+
+        /* (тот же CSS, только ключевые классы — кратко) */
+        :root{ --bg:#050505; --muted:#9aa0a6; --accent:#ef476f; --radius:12px; }
+        html,body{height:100%;margin:0;background:var(--bg);color:#efefef;font-family:Inter,Arial,system-ui;}
+        .header{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.02)}
+        .ai-settings{max-width:1100px;margin:26px auto;padding:20px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.012),rgba(255,255,255,0.006));border:1px solid rgba(255,255,255,0.03)}
+        .top-actions{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+        #add-knowledge-btn{background:linear-gradient(180deg,rgba(239,71,111,0.14),rgba(239,71,111,0.08));border:1px solid rgba(239,71,111,0.18);color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+        .note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+        @media (max-width:1100px){.note-grid{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:700px){.note-grid{grid-template-columns:1fr}}
+        .note-card{background:linear-gradient(180deg,rgba(255,255,255,0.008),rgba(255,255,255,0.004));border:1px solid rgba(255,255,255,0.02);padding:14px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.55);display:flex;flex-direction:column;gap:10px;min-height:120px;transition:transform .16s ease}
+        .note-card:hover{transform:translateY(-6px)}
+        .note-head{display:flex;gap:8px;align-items:center}
+        .note-badge{padding:6px 8px;border-radius:999px;font-weight:700;font-size:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+        .note-title{font-size:15px;font-weight:800;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+        .note-excerpt{color:var(--muted);font-size:13px;line-height:1.3;max-height:4.2em;overflow:hidden;text-overflow:ellipsis}
+        .note-meta{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:auto}
+        .note-actions{display:flex;gap:8px;align-items:center}
+        .btn-ghost{padding:6px 8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);color:#ddd;cursor:pointer;font-weight:700}
+        .progress-bar{width:120px;height:8px;background:rgba(255,255,255,0.02);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.01)}
+        .progress-fill{height:100%;width:0;background:linear-gradient(90deg,rgba(239,71,111,0.9),rgba(239,71,111,0.6));transition:width 400ms ease}
+        .viewer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:12200;padding:28px}
+        .viewer{width:min(1100px,96%);max-height:86vh;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 22px 80px rgba(0,0,0,0.7);overflow:hidden;display:flex;flex-direction:column}
+        .v-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.02)}
+        .v-body{padding:14px;overflow:auto;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent)}
+        .small-muted{color:var(--muted);font-size:13px}
+        .add-modal{display:none;position:fixed;inset:0;z-index:13000;align-items:center;justify-content:center;padding:20px}
+        .add-modal.visible{display:flex}
+        .add-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(2px)}
+        .add-panel{
+            width: 760px;
+            max-width: 100%;
+            height: 480px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+            border-radius: 12px;
+            padding: 18px;
+            background: linear-gradient(180deg, rgb(4 4 4), rgb(3 3 3));
+            border:1px solid rgba(255,255,255,0.03)
+        }
+        .add-tabs{display:flex;gap:8px;margin-bottom:12px}
+        .add-tabs button{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer;font-weight:700; color:#e9e9e9}
+        .add-tabs button.active{background:rgba(239,71,111,0.08);border-color:rgba(239,71,111,0.18)}
+        .modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+        .close-modal{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:8px;border-radius:8px}
+
+
+
+
+
+
+
+
+
+
+/* top actions */
+.top-actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+#add-knowledge-btn{
+  background: linear-gradient(180deg, rgba(239,71,111,0.14), rgba(239,71,111,0.08));
+  border:1px solid rgba(239,71,111,0.18);
+  color:#fff; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:700;
+}
+
+/* --- Card styling --- */
+.note-card{
+  position: relative;
+  padding: 55px 16px 14px 16px; /* больше сверху для бейджа */
+  min-height: 128px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.004));
+  border:1px solid rgba(255,255,255,0.02);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+}
+.note-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.6);
+}
+
+/* badge (тип источника) */
+.note-badge{
+  position:absolute;
+  top:12px;
+  left:14px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  color:var(--muted);
+  z-index: 6;
+  letter-spacing:0.2px;
+}
+
+/* pinned label (subtle) */
+.note-card.pinned{
+  border-left: 4px solid var(--accent);
+}
+.note-card .pinned-label{
+  position:absolute;
+  top:12px;
+  left: calc(14px + 86px); /* рядом с бейджем, без перекрытия */
+  font-size:11px;
+  color:var(--accent);
+  font-weight:700;
+  z-index:7;
+}
+
+/* menu button (three dots) */
+.card-menu-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.02);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#ddd;
+  z-index: 8;
+  transition: background var(--transition), transform var(--transition);
+}
+.card-menu-btn:hover{ background: rgba(255,255,255,0.02); transform: translateY(-1px); }
+
+/* popup */
+.card-menu-popup{
+  position:absolute;
+  top:46px;
+  right:10px;
+  min-width:150px;
+  max-width: 200px;
+  background: linear-gradient(180deg, rgb(8 8 8), rgb(5 5 5));
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius:10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  padding:6px;
+  display:none;
+  z-index: 30;
+}
+.card-menu-popup.visible{ display:block; }
+.card-menu-popup button{
+  width:100%;
+  text-align:left;
+  padding:8px 10px;
+  border-radius:8px;
+  background:transparent;
+  border:0;
+  color:#eee;
+  cursor:pointer;
+  font-weight:700;
+}
+.card-menu-popup button:hover{ background: rgba(255,255,255,0.02); }
+
+/* --- Head: title and excerpt --- */
+.note-head{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; z-index:2; }
+.note-title{
+  font-size:15px;
+  font-weight:800;
+  color: #fff;
+  white-space: normal;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;       /* limit to ~2 lines */
+  -webkit-box-orient: vertical;
+  line-height:1.15;
+  max-height:2.5em;
+}
+
+/* excerpt: muted, clamp to 3 lines to keep cards same height */
+.note-excerpt{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.35;
+  margin-top: 0;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Meta / actions row --- */
+.note-meta{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:auto; /* pushes meta to bottom so cards align */
+  z-index:2;
+}
+
+/* left meta text */
+.note-meta-left{ color:var(--muted); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* actions area keeps only progress (we removed duplicate action buttons) */
+.note-actions{ display:flex; gap:12px; align-items:center; justify-content:flex-end; min-width:120px; }
+
+/* progress: smaller, more compact */
+.progress-bar{
+  width:120px;
+  height:8px;
+  background: rgba(255,255,255,0.02);
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.01);
+}
+.progress-fill{
+  height:100%;
+  width:0;
+  background: linear-gradient(90deg, rgba(239,71,111,0.95), rgba(239,71,111,0.6));
+  transition: width 420ms ease;
+  box-shadow: 0 2px 8px rgba(239,71,111,0.05) inset;
+}
+
+/* ghost button style preserved for header */
+.btn-ghost{
+  border-radius:10px;
+  padding:8px 10px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.02);
+  color:#ddd;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* viewer modal */
+.viewer-backdrop{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:12200;
+  padding:28px;
+}
+.viewer-backdrop[style*="display:flex"], .viewer-backdrop.visible{ display:flex; }
+.viewer{
+  width: min(1100px, 96%);
+  max-height: 86vh;
+  background:linear-gradient(180deg, rgb(4 4 4), rgb(3 3 3));
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 22px 80px rgba(0,0,0,0.7);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.v-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px; border-bottom:1px solid rgba(255,255,255,0.02);
+  background: linear-gradient(180deg, rgba(255,255,255,0.006), transparent);
+}
+.v-header #viewer-title{ font-weight:800; font-size:16px; }
+.v-body{ padding:14px; overflow:auto; background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent); }
+.v-body iframe{ width:100%; height:62vh; border:0; border-radius:6px; }
+
+/* small helpers & responsive */
+.small-muted{ color:var(--muted); font-size:13px; }
+.note-card.clickable{ cursor:pointer; }
+
+/* card menu focus */
+button:focus{ outline:none; box-shadow: 0 0 0 4px rgba(239,71,111,0.06); border-radius:8px; }
+
+/* scrollbar */
+.note-grid::-webkit-scrollbar, .v-body::-webkit-scrollbar { height:8px; width:8px; }
+.note-grid::-webkit-scrollbar-thumb, .v-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.03); border-radius:6px; }
+
+/* responsive tweaks */
+@media (max-width: 1100px){
+  .ai-settings{ margin:18px; padding:16px; border-radius:10px; }
+  .note-card{ min-height:120px; padding:18px 12px 12px 12px; }
+}
+@media (max-width: 700px){
+  .note-grid{ gap:10px; }
+  .progress-bar{ width:96px; }
+}
+
+/* utility */
+.hidden{ display:none !important; }
+.text-danger{ color:#ff6b6b; }
+
+
+/* Чистый способ: .add-panel фиксированный размер, .add-body — relative,
+   а каждый data-tab-body — абсолютная полоса, одинакового размера */
+.add-panel {
+  width: 760px;
+  max-width: 100%;
+  height: 480px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+}
+
+/* тело содержит абсолютные табы */
+.add-body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0; /* для корректного overflow в flex */
+  overflow: hidden;
+}
+
+/* каждый таб занимает всю область add-body */
+.add-body [data-tab-body] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px 0 0 0; /* при необходимости скорректируй */
+    box-sizing: border-box;
+    overflow: auto;
+    overflow-x: hidden;
+    display: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* активный таб — показываем */
+.add-body [data-tab-body][style*="display:block"], /* совместимость с inline-styles */
+.add-body [data-tab-body].active {
+  display: block;
+}
+
+/* внутренняя обёртка внутри таба — используем flex, textarea растёт */
+.tab-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* текстовое поле растягиваем на всю оставшуюся высоту */
+.tab-inner .modal-textarea {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+/* для file/site таба — если нужно центрировать маленькую форму */
+.tab-inner .center-vert {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  padding-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .add-panel { width: calc(100% - 40px); height: 84vh; }
+  .add-body { overflow: auto; }
+}

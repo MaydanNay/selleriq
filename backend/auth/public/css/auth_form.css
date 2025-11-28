@@ -1,0 +1,111 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+    }
+
+    
+    form input {
+        width: 366px;
+        height: 50px;
+        padding: 27px 20px;
+        border: 1px solid #252525;
+        border-radius: 15px;
+        background-color: #1C1C1C;
+        color: #D0D0D0;
+        font-size: 14px;
+        font-weight: 600;
+        outline: none; 
+        box-sizing: border-box;
+    }
+
+    input:focus, textarea:focus {
+        box-shadow: 0 0 5px #000000; 
+    }
+
+    form input::placeholder {
+        color: #5D5D5D;
+    }
+
+    .form-container h1 {
+        color: #D0D0D0;
+        font-size: 34px;
+        text-align: left;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .form-container p {
+        color: #5D5D5D;
+        font-size: 14px;
+        text-align: left;
+        font-weight: 500;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    .form-container .error {
+        color: #cf6679;
+        text-align: left;
+}
+
+
+.nickname-label {
+    position: relative;
+    display: block;
+    width: 366px;
+  }
+  
+  .fixed-text {
+    position: absolute;
+    /* top: 50%; */
+    top: 33%;
+    left: 20px;
+    /* transform: translateY(-50%); */
+    color: #D0D0D0;
+    font-size: 14px;
+    font-weight: 600;
+    pointer-events: none; 
+  }
+
+  #nickname {
+    width: 100%;
+    height: 50px;
+    padding: 27px 75px; 
+    border: 1px solid #252525;
+    border-radius: 15px;
+    background-color: #1C1C1C;
+    color: #D0D0D0;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none; 
+    box-sizing: border-box;
+  }
+  
+  #nickname::placeholder {
+    color: #5D5D5D;
+}
+
+
+.toggle-password img {
+    width: 24px;
+    height: 24px;
+    margin-top: 4px;
+    cursor: pointer;
+    padding-right: 7px;
+    }
+
+    .password-input {
+        position: relative;
+    }
+
+    .password-input .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 16px;
+}

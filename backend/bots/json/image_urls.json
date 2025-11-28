@@ -1,0 +1,31 @@
+{
+    "apology": {
+      "pattern": "\\b(извините|извини|простите|извиняюсь|сожалею|к сожалению|прошу прощения|приношу(?: свои)? извинения|мои извинения|пардон)\\b",
+      "images": [
+        "https://avatars.mds.yandex.net/i?id=f24a4fa82e037e1510cafc516eca27ea_l-3596236-images-thumbs&n=13",
+        "https://avatars.mds.yandex.net/i?id=fac73e4f71bbc8caf513100dfc15b275_l-7120298-images-thumbs&n=13",
+        "https://i.pinimg.com/originals/61/60/56/6160566364eaf4dc677b30c16a85f624.png",
+        "https://i.pinimg.com/736x/6e/4f/9c/6e4f9c6385c83490a7402a4a348680c5.jpg",
+        "https://avatars.mds.yandex.net/i?id=b4c5728431add1bd05942c4e60963fba_l-5238336-images-thumbs&n=13"
+      ]
+    },
+    "wait": {
+      "pattern": "\\b(на\\s?жду|буду\\s?ждать|подожду|ожидаю|жду)\\b",
+      "images": [
+        "https://avatars.mds.yandex.net/i?id=27875e4f663604dc428d3e95d303bdfe_l-5877064-images-thumbs&n=13",
+        "https://i.pinimg.com/736x/1e/fa/43/1efa4374a50aab7febd33ec2f16f1dc7.jpg",
+        "https://i.pinimg.com/736x/1c/75/8a/1c758a0f1c4b3c53c03af95af7e1f340.jpg",
+        "https://avatars.mds.yandex.net/i?id=aa88c7874c0425f5052511dec5c55a9e_l-12475834-images-thumbs&n=13",
+        "https://avatars.mds.yandex.net/i?id=6049785d84ceee9deea16ee432217c6d_l-4748118-images-thumbs&n=13",
+        "https://avatars.mds.yandex.net/i?id=809f41724a9bb79e9a95eafd65ed28a2_l-5870469-images-thumbs&n=13"
+      ]
+    },
+
+    "keywords": [
+      {
+        "name": "",
+        "url": ""
+      }
+    ]
+  }
+  

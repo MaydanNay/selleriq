@@ -1,0 +1,56 @@
+{% extends "auth_base.html" %}
+
+{% block title %}
+    MixNet | Выбор
+{% endblock %}
+
+<!-- Подключение специфичных стилей для этой страницы -->
+{% block extra_css %}
+    <link rel="stylesheet" href="/auth/css/roles-container.css">
+{% endblock %}
+
+<!-- Подключение основной контент для этой страницы -->
+{% block content %}
+    <form action="/select-role" method="post" id="role-form">
+        <div class="background-text">
+            <p>Что вы хотите ?</p>
+            <p>Что вы хотите ?</p>
+            <p>Что вы хотите ?</p>
+            <p>Что вы хотите ?</p>
+        </div>
+
+        <div class="roles-container">
+            <div class="role-card" data-role="business" id="business">
+                <img class="role-image" src="/common/images/select_1.svg">
+                <span class="role-text">Хочу<br>
+                    <span class="highlight-connect">подключить</span><br>MixNet<br>в свой бизнес
+                </span>
+            </div>
+            
+            <div class="role-card" data-role="manager" id="manager">
+                <img class="role-image" src="/common/images/select_2.svg">
+                <span class="role-text">Хочу<br>
+                    <span class="highlight-sell">продавать</span><br>MixNet другим<br>бизнесам
+                </span>
+            </div>
+        </div>
+
+        <div id="error-message" style="color: #B40000; display: none; margin: 10px auto; text-align: center;">
+            Пожалуйста, выберите роль.
+        </div>
+
+        <input type="hidden" name="role" id="role-input">
+
+        <!-- Основная кнопка -->
+        <button type="submit">Продолжить
+            <span class="arrow-icon">
+                <img src="/common/images/arrow.svg" alt="Стрелка">
+            </span>
+        </button>
+    </form>
+{% endblock %}
+
+<!-- Подключение специфичных скриптов для этой страницы -->
+{% block extra_js %}
+  <script src="/auth/js/roleSelector.js"></script>
+{% endblock %}

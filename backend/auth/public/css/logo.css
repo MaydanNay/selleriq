@@ -1,0 +1,119 @@
+body {
+    position: relative;
+}
+
+/* вариант: переменная для фонового файла */
+:root { --bg-url: url("/common/images/f.webp"); }
+html.no-webp { --bg-url: url("/common/images/f.png"); }
+
+/* Если браузер поддерживает webp */
+body.webp {
+    background-image: url('/common/images/background.webp');
+}
+
+/* Если браузер не поддерживает webp */
+body.no-webp {
+    background-image: url('/common/images/background.png');
+}
+
+/* Фон через фиксированный ::before для лучшей производительности */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bg-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    pointer-events: none;
+    background-image:
+        linear-gradient(#101010,#101010),
+        var(--bg-url);
+    background-blend-mode: normal;
+}
+
+/* Логотип над мобильным контейнером */
+.logo-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    position: absolute; 
+    top: 5%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+.logo {
+    width: 55px; 
+    height: auto;
+    margin-bottom: 10px; 
+}
+.logo-text {
+    color: #9DA0A3; 
+    font-size: 14px; 
+    font-weight: 600; 
+    max-width: 180px; 
+    line-height: 1.2; 
+    margin: 0; 
+    word-wrap: break-word; 
+}
+
+.mobile-container {
+    margin: 0 auto;
+    margin-top: 180px;
+    padding: 27px;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Отключаем тяжелые эффекты на мобильных */
+@media (max-width: 768px) {
+    body::before {
+        will-change: auto;
+        transform: none;
+        background-attachment: scroll;
+    }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    @keyframes pulse { from { transform: none } to { transform: none } }
+}
+
+/* Медиазапрос для устройств с очень узким экраном */
+@media (max-width: 320px) {
+    .mobile-container {
+        width: 95%;
+        padding: 20px 10px;
+    }
+}
+
+/* Медиазапрос для устройств с ограниченной высотой */
+@media (max-height: 600px) {
+    .mobile-container {
+        min-height: auto;
+        height: auto;
+        padding: 15px;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px #fff202;
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 20px #fff202;
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px #d9b205;
+    }
+}

@@ -1,0 +1,10 @@
+server:
+    http_addr: 0.0.0.0
+    http_port: 6333
+
+storage:
+    path: "./qdrant/storage"
+    memmap_enabled: true
+
+# Ограничим потоки при индексировании
+max_indexing_threads: 2

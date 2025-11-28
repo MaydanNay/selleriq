@@ -1,0 +1,198 @@
+<!-- src/modules/base/public/html/knowledge.html -->
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>База знаний | MixNet</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap">
+    <link rel="icon" type="image/x-icon" href="/common/favicons/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/mixlink/basic/css/notification.css">
+    <link rel="stylesheet" href="/knowledge/css/knowledge.css">
+    <link rel="stylesheet" href="/common/css/not-mobile.css">
+
+    <style>
+        .base-knowledge {
+            max-width: var(--max-centered-w);
+            margin: 26px auto;
+            padding: 22px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.014), rgba(255,255,255,0.006));
+            border: 1px solid rgba(255,255,255,0.03);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+            min-height: 50px;
+        }
+
+        /* Кнопка "Основные данные бизнеса" */
+        .edit-ai-button {
+            display: inline-flex;
+            position: relative;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(239,71,111,0.12), rgba(239,71,111,0.06));
+            border: 1px solid rgba(239,71,111,0.18);
+            color: #fff;
+            font-weight: 700;
+            font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 18px rgba(239,71,111,0.04);
+            align-self: flex-start; /* если в flex-контейнере */
+        }
+
+        /* Hover / focus / active */
+        .edit-ai-button:hover{
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, rgba(239,71,111,0.18), rgba(239,71,111,0.08));
+            box-shadow: 0 12px 30px rgba(239,71,111,0.06);
+        }
+        .edit-ai-button:active{
+            transform: translateY(0);
+            opacity: 0.95;
+        }
+        .edit-ai-button:focus,
+        .edit-ai-button:focus-visible{
+            outline: none;
+            box-shadow: 0 0 0 5px rgba(239,71,111,0.08);
+            border-color: rgba(239,71,111,0.26);
+        }
+
+        /* Disabled state */
+        .edit-ai-button[disabled], .edit-ai-button.disabled{
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-placeholder" role="alert" aria-live="polite">
+        <div>
+            <strong style="display:block;margin-bottom:8px;font-size:1.1em;">
+                Мобильная версия ещё не готова :)
+            </strong>
+            <div style="opacity:0.8;font-size:0.95em;">
+                Откройте сайт на ПК для полного интерфейса
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-title">База знания</div>
+        <div class="header-right">
+            <div class="top-actions">
+                <button id="add-knowledge-btn">➕ Добавить блок знаний</button>
+                <button id="reindex-all-btn" class="btn-ghost">Переиндексировать всё</button>
+                <button id="export-knowledge-btn" class="btn-ghost">Экспорт</button>
+            </div>
+            <button class="btn-ghost" onclick="window.location.href='/business/notifications'">
+                <img src="/common/images/notification.svg" alt="Уведомления" style="width:16px;height:16px">
+            </button>
+            <button class="btn-ghost" onclick="history.back()">
+                <img src="/common/images/close_button.svg" alt="Закрыть" style="width:16px;height:16px">
+            </button>
+        </div>
+    </header>
+
+    <div class="base-knowledge">
+        <button class="edit-ai-button" onclick="location.href='/business/agent/edit'">
+            Основные данные бизнеса
+        </button>
+    </div>
+
+    <main class="ai-settings" role="main">
+        <h2>Блоки знаний - база данных и источники</h2>
+        <div class="info-line small-muted"></div>
+
+        <div id="sources-section" style="margin-top:8px;">
+        <div id="sources-loading" class="small-muted" style="display:none;">Загрузка…</div>
+            <div class="note-grid" id="source-list" aria-live="polite">
+                <div class="small-muted">Источники не загружены</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- viewer modal -->
+    <div class="viewer-backdrop" id="viewer-backdrop" role="dialog" aria-modal="true">
+        <div class="viewer" id="viewer">
+            <div class="v-header">
+                <div id="viewer-title" style="font-weight:700">Просмотр источника</div>
+                <div>
+                    <!-- download dropdown moved to header -->
+                    <div id="viewer-download-wrap" style="margin-right:8px; display:none; position:relative;">
+                        <button id="viewer-download-btn" class="btn-ghost" type="button" aria-haspopup="true" aria-expanded="false">Скачать</button>
+                        <div id="viewer-download-menu" class="download-menu" role="menu"
+                            style="display:none; position:absolute; top:100%; right:0; min-width:160px; box-shadow:0 6px 18px rgba(0,0,0,0.18); background:var(--card); border-radius:8px; padding:6px; z-index:1000;">
+                        </div>
+                    </div>
+                    <button id="viewer-close" class="btn-ghost">Закрыть</button>
+                </div>
+            </div>
+            <div class="v-body" id="viewer-body"></div>
+        </div>
+    </div>
+
+    <!-- add modal (kept for parity) -->
+    <div class="add-modal" id="add-modal" aria-hidden="true">
+        <div class="add-backdrop" id="add-backdrop"></div>
+        <div class="add-panel" role="dialog" aria-modal="true" aria-labelledby="add-modal-title">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                <h3 id="add-modal-title" style="margin:0; font-size:18px;">Добавить блок знаний</h3>
+                <button class="close-modal" id="add-modal-close">✕</button>
+            </div>
+            <div class="add-tabs" id="add-tabs">
+                <button data-tab="text" class="active">Текст</button>
+                <button data-tab="file">Файл</button>
+                <button data-tab="site">Ссылка</button>
+            </div>
+            <div class="add-body">
+                <div data-tab-body="text" style="display:block;">
+                    <div class="tab-inner">
+                        <div style="margin-bottom:8px;">
+                            <input id="modal-text-title" placeholder="Краткий заголовок" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.02); background:transparent; color:#eee;" />
+                        </div>
+                        <!-- <textarea id="modal-src-text" placeholder="Вставьте текст..." style="width:100%; height:220px; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.02); background:transparent; color:#eee;"></textarea> -->
+                        <textarea id="modal-src-text" class="modal-textarea" placeholder="Вставьте текст..."></textarea>
+                    </div>
+                </div>
+
+                <div data-tab-body="file" style="display:none;">
+                    <div class="tab-inner">
+                        <div class="add-row" style="margin-bottom:8px;">
+                            <input id="modal-src-file" type="file" style="display:none;" />
+                            <button id="modal-choose-file" class="btn-ghost">Выбрать файл</button>
+                            <div id="modal-chosen-filename" style="color:var(--muted);"></div>
+                        </div>
+                        <div class="center-vert" style="flex:1"></div>
+                    </div>
+                </div>
+
+                <div data-tab-body="site" style="display:none;">
+                    <div class="tab-inner">
+                        <input id="modal-site-url" placeholder="https://example.com/page" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.02); background:transparent; color:#eee;" />
+                        <div style="flex:1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="add-modal-cancel" class="close-modal">Отмена</button>
+                <button id="add-modal-submit" class="btn-ghost" disabled>Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- подключаем модульный JS -->
+    <script src="/mixlink/basic/js/notification.js"></script>
+    <script type="module" src="/knowledge/js/main.js"></script>
+</body>
+</html>

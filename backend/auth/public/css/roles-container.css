@@ -1,0 +1,102 @@
+/* Тестовый блок */
+.background-text{
+  position: relative;
+  top: 30px;
+  margin-block: -50px;
+  font-size: 30px;
+  color: #232323;
+  line-height: 0.4;
+  font-weight: 900;
+  font-family: 'Unbounded', sans-serif;
+  text-align: center;
+  z-index: 2;
+}
+
+
+/* Контейнер для карточек - центрирование в мобильном контейнере */
+.roles-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;  /* Ширина карточек */
+  margin: 30px auto; /* Центрирование по горизонтали, отступ сверху/снизу */
+  z-index: 3;
+  position: relative;
+  }
+
+  /* Общий стиль карточек с оконтовкой */
+  .role-card {
+    position: relative;
+    width: 330px;
+    height: 160px;           /* Высота карточки */
+    background-color: #828282;
+    border-radius: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, z-index 0.3s ease;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
+    border: 6px solid transparent; /* Прозрачная рамка по умолчанию */
+  }
+
+  /* При наведении можно менять внешний вид карточки */
+  .role-card:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    border-color: #CCCCCC;
+  }
+
+  /* Начальное вращение для карточек, если они не выбраны */
+  .roles-container .role-card:not(.selected):nth-child(1) {
+    transform: rotate(-4deg);
+  }
+  .roles-container .role-card:not(.selected):nth-child(2) {
+    transform: rotate(4deg);
+  }
+
+  /* Если карточка выбрана, она выравнивается и получает обводку */
+  .role-card.selected {
+    transform: rotate(0deg);
+    border: 6px solid #B40000; /* Цвет обводки для выбранной карточки */
+    z-index: 20;
+  }
+
+  /* При наведении карточки выравниваются и немного увеличиваются */
+  .role-card:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+
+  /* Фоновое изображение - занимает всю карточку */
+  .role-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 375px;
+    height: 170px;
+    object-fit: cover;
+  }
+
+  /* Текст поверх изображения */
+  .role-text {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    z-index: 1;
+    color: #000000;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 0.9;
+    font-family: 'Unbounded', sans-serif;
+}
+
+
+.highlight-connect {
+  color: #B40000;
+}
+
+
+.highlight-sell {
+  color: #B40000; 
+}
