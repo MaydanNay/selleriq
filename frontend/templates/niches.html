@@ -2,57 +2,86 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1" /> -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Выбор ниши</title>
+
+  <!-- Подключаем css -->
   <link rel="stylesheet" href="/static/css/niches.css" />
-  <style>
-    :root{--bg:#f6f7fb;--card:#fff;--muted:#6b7280;--accent:#2563eb}
-    body{font-family:Inter,system-ui,Arial;background:var(--bg);margin:0;color:#111}
-    .wrap{max-width:1100px;margin:28px auto;padding:18px}
-    .categories{display:block;gap:12px}
-    .cat-card{background:var(--card);border-radius:10px;padding:12px;margin-bottom:10px;box-shadow:0 6px 18px rgba(12,15,30,0.06)}
-    .cat-head{display:flex;align-items:center;gap:10px}
-    .toggle{width:28px;height:28px;border-radius:6px;border:1px solid #ddd;background:#fafafa;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-    .cat-info{flex:1}
-    .cat-name{font-weight:700}
-    .cat-meta{color:var(--muted);font-size:13px;margin-top:4px}
-    .sublist{display:none;padding-left:18px;margin-top:10px;border-left:2px dashed #f0f0f0}
-    .sublist.active{display:block}
-    .subitem{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;margin:6px 0;cursor:default}
-    .subitem a{flex:1;text-decoration:none;color:inherit;display:block}
-    .sub-toggle{background:transparent;border:none;cursor:pointer;font-size:14px;padding:4px}
-    .leaf-link{color:var(--accent)}
-  </style>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+
 </head>
 <body>
   <main class="wrap">
-    <header style="margin-bottom:12px">
-      <h1 style="margin:0 0 6px">Выберите нишу</h1>
-      <p style="margin:0;color:var(--muted)">Клик по основной — показать подкатегории. Клик по подкатегории без детей — перейти на товары.</p>
-    </header>
+    <!-- Верхняя панель — похожая на скрин: темная карточка с поиском и фильтром -->
+    <section class="panel-top">
+      <h1 class="panel-title">Категории</h1>
 
-    <section id="categories-root" class="categories">
+      <div class="controls">
+        <label class="search">
+          <div class ="icon">
+            <img src="/static/images/search_icon.svg" alt="Поиск" width="16" height="16" />
+          </div>
+          <input type="search" id="category-search" placeholder="Найти товар..." aria-label="Поиск по категориям" />
+        </label>
+
+        <button id="period-btn" class="period" aria-pressed="false">
+          <div class="icon">
+            <img src="/static/images/calendar_icon.svg" alt="calendar" width="16" height="16" />
+          </div>
+          <div class ="period-content">
+            <span class="period-text">Последние 30 дней</span>
+            <span class="chev">›</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Контент: карточки категорий -->
+    <section id="categories-root" class="categories" role="list">
       {% for cat in categories %}
-        <div class="cat-card" data-id="{{ cat.category_id }}">
-          <div class="cat-head">
-            {% set children = cat.get('items') or [] %}
-            {% if children %}
-              <button class="toggle" data-id="{{ cat.category_id }}" aria-expanded="false" title="Показать подкатегории">▸</button>
-            {% else %}
-              <div style="width:28px"></div>
-            {% endif %}
+        <article class="cat-card" data-id="{{ cat.category_id }}" role="listitem">
+          <header class="cat-head">
+            <div class="cat-image">
+              {% set img_url = cat._image_url %}
+              {% if img_url %}
+                <img src="{{ img_url }}" alt="{{ cat.category_name }}" width="48" height="48" />
+              {% else %}
+                <div class="thumb-placeholder"><span class="thumb">📱</span></div>
+              {% endif %}
+            </div>
             <div class="cat-info">
               <div class="cat-name">{{ cat.category_name }}</div>
-              <div class="cat-meta">Продаж: {{ "{:,}".format(cat.sale_qty or 0) }} · Сумма: {{ "{:,}".format(cat.sale_amount or 0) }}</div>
+            </div>
+            {% set children = cat.get('items') or [] %}
+            {% if children %}
+              <button class="toggle" data-id="{{ cat.category_id }}" aria-expanded="false" title="Показать подкатегории">
+                <img src="/static/images/arrow.svg" alt="Показать подкатегории" width="16" height="16" />
+              </button>
+            {% else %}
+              <div class="thumb-placeholder"><span class="thumb">📱</span></div>
+            {% endif %}
+          </header>
+
+          <!-- превью карточки (метрики) -->
+          <div class="cat-metrics">
+            <div class="metric">
+              <div class="label">Продажи</div>
+              <div class="val">{{ "{:,}".format(cat.sale_qty or 0) }}</div>
+            </div>
+            <div class="metric">
+              <div class="label">Выручка</div>
+              <div class="val">{{ "{:,}".format(cat.sale_amount or 0) }} ₸</div>
             </div>
           </div>
 
+          <!-- Подкатегории -->
           <div class="sublist" data-parent="{{ cat.category_id }}">
             {% if children %}
               {% for sub in children %}
                 {% set subchildren = sub.get('items') or [] %}
                 <div class="subitem" data-id="{{ sub.category_id }}">
-                  <div style="display:flex;gap:10px;align-items:center;flex:1">
+                  <div class="sub-left">
                     {% if subchildren %}
                       <button class="sub-toggle" aria-expanded="false" data-id="{{ sub.category_id }}" title="Показать узкие категории">▸</button>
                       <div class="sub-name">{{ sub.category_name }}</div>
@@ -60,31 +89,42 @@
                       <a class="leaf-link" href="{{ request.url_for('category_page', category_id=sub.category_id) }}">{{ sub.category_name }}</a>
                     {% endif %}
                   </div>
-                  <div style="color:var(--muted);font-size:12px">
-                    {{ "{:,}".format(sub.sale_qty or 0) }}
+
+                  <div class="sub-right">
+                    <div class="sub-stats">{{ "{:,}".format(sub.sale_qty or 0) }}</div>
+                    {% if not subchildren %}
+                      <a class="goto" href="{{ request.url_for('category_page', category_id=sub.category_id) }}" aria-label="Перейти в {{ sub.category_name }}">›</a>
+                    {% else %}
+                      <span class="goto">›</span>
+                    {% endif %}
                   </div>
                 </div>
 
                 {% if subchildren %}
-                  <div class="sublist inner" data-parent="{{ sub.category_id }}" style="display:none; margin-left:20px; border-left:1px dashed #eee; padding-left:12px;">
+                  <div class="sublist inner" data-parent="{{ sub.category_id }}">
                     {% for leaf in subchildren %}
                       <div class="subitem leaf" data-id="{{ leaf.category_id }}">
                         <a class="leaf-link" href="{{ request.url_for('category_page', category_id=leaf.category_id) }}">{{ leaf.category_name }}</a>
-                        <div style="color:var(--muted);font-size:12px">{{ "{:,}".format(leaf.sale_qty or 0) }}</div>
+                        <div class="sub-right">
+                          <div class="sub-stats">{{ "{:,}".format(leaf.sale_qty or 0) }}</div>
+                          <a class="goto" href="{{ request.url_for('category_page', category_id=leaf.category_id) }}" aria-label="Перейти в {{ leaf.category_name }}">›</a>
+                        </div>
                       </div>
                     {% endfor %}
                   </div>
                 {% endif %}
               {% endfor %}
             {% else %}
-              <div class="no-sub" style="color:var(--muted);padding:8px">Подкатегорий нет</div>
+              <div class="no-sub">Подкатегорий нет</div>
             {% endif %}
           </div>
-        </div>
+        </article>
       {% endfor %}
     </section>
+
   </main>
 
+  <!-- Скрипт -->
   <script src="/static/js/niches.js" defer></script>
 </body>
 </html>

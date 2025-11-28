@@ -1,28 +1,207 @@
-:root{
-  --bg:#f6f7fb; --card:#fff; --muted:#6b7280; --accent:#2563eb;
-  font-family: Inter, system-ui, Arial;
+/* Сделать карточку контекстом для абсолютного позиционирования */
+.cat-card{
+  position: relative; /* важно */
+  overflow: visible;  /* уже было, но на всякий случай */
+  padding-bottom: 20px; /* базовый запас */
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#111}
-.wrap{max-width:1100px;margin:28px auto;padding:18px}
-.top h1{margin:0 0 6px;font-size:22px}
-.hint{color:var(--muted);margin:0 0 18px}
 
-.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
-.cat-card{background:var(--card);border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(12,15,30,0.06)}
-.cat-head{display:flex;align-items:center;gap:10px}
-.toggle{background:transparent;border:none;cursor:pointer;font-size:14px}
+/* при открытой карточке будем резервировать место через CSS-переменную */
+.cat-card.open{
+  margin-bottom: var(--open-sublist-space, 0px);
+  transition: margin-bottom .18s ease;
+}
+
+/* Подсписок теперь плавающий под карточкой */
+.sublist{
+  display: none; /* скрыт по умолчанию */
+  position: absolute;
+  left: 16px;           /* выровнять по внутренним отступам карточки */
+  right: 16px;
+  top: 100%;            /* сразу под низом карточки */
+  margin-top: 12px;
+  z-index: 20;
+  pointer-events: auto;
+  background: transparent; /* фон у самих строк (.subitem) */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .18s ease, opacity .12s ease;
+  opacity: 0;
+  box-shadow: none;
+}
+
+/* когда показываем — делаем видимым и даём макс-высоту */
+.sublist.active{
+  display: block;
+  opacity: 1;
+  max-height: 1200px; /* достаточно большой максимум, реальная высота вычисляется скриптом */
+}
+
+/* стиль строк — делаем их карточечными, чтобы выглядело как на первом скрине */
+.subitem{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px;
+  border-radius:12px;
+  background:var(--soft); /* светло-серый прямоугольник */
+  margin:6px 0;
+  box-shadow: 0 2px 6px rgba(14,20,30,0.04);
+  border-top: none;
+}
+
+/* убрать верхние бордеры между строками (они уже не нужны) */
+.subitem + .subitem{ border-top: 0; }
+
+/* внутренние подсписки немного сдвигаем вправо */
+.sublist.inner{
+  left: 24px;
+  right: 24px;
+  padding-left: 6px;
+  background: transparent;
+}
+
+
+
+:root{
+  --bg:#eef2f7;
+  --panel:#313131;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#1f7ae6;
+  --soft:#EFEFEF;
+  --shadow: 0 8px 24px rgba(14,20,30,0.08);
+  font-family: Inter, system-ui, Arial, "Segoe UI", Roboto, "Helvetica Neue";
+}
+
+
+html,body{
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 480px; 
+  margin: 0 auto; 
+  min-height: 100vh;
+  padding: 20px 16px 90px;
+  box-sizing: border-box;
+}
+
+/* Categories list (cards) */
+.categories{display:flex;flex-direction:column;gap:12px}
+
+
+
+
+
+
+
+
+
+
+/* Card */
+.cat-card{
+  background:var(--card);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow:var(--shadow);
+  overflow:visible;
+  transition:transform .12s ease;
+  border: 1px solid #C8C8C8;
+}
+.cat-card.open{transform:translateY(-4px)}
+
+.cat-head{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.toggle, .sub-toggle{
+  min-width:44px;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  border:1px solid #e6e9ee;
+  background:var(--soft);
+  font-size:18px;
+  cursor:pointer;
+}
+.thumb, .thumb-placeholder .thumb{font-size:20px}
+.thumb-placeholder{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--soft);border:1px solid #eee}
+
 .cat-info{flex:1}
-.cat-name{font-weight:700}
-.cat-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.cat-name{font-weight:700;font-size:15px}
+.cat-meta{color:var(--muted);font-size:13px;margin-top:4px}
 
-.sublist{margin-top:10px;display:none;padding-top:8px;border-top:1px dashed #eee}
+/* Metrics preview under header */
+.cat-metrics{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+.metric{
+  flex:1;
+  background:var(--soft);
+  padding:10px;
+  border-radius:10px;
+  text-align:left;
+}
+.metric .label{font-size:12px;color:var(--muted)}
+.metric .val{font-weight:700;margin-top:6px;font-size:15px}
+
+/* Sublist: accordion content */
+.sublist{
+  display:none;
+  margin-top:12px;
+  border-radius:12px;
+  overflow:hidden;
+  transition:max-height .18s ease;
+}
 .sublist.active{display:block}
-.subitem{display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;cursor:pointer}
-.subitem:hover{background:#fbfcff}
-.sub-checkbox{width:16px;height:16px}
-.no-sub{color:var(--muted);font-size:13px;padding:8px}
 
-.actions{display:flex;align-items:center;gap:12px;margin-top:16px}
-.btn{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}
-.status{color:var(--muted);font-size:14px}
+/* subitem rows */
+.subitem{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:10px;
+  border-radius:10px;
+  background:transparent;
+}
+.subitem + .subitem{border-top:1px solid #f0f2f5}
+.sub-left{display:flex;align-items:center;gap:10px;flex:1}
+.sub-name{font-weight:600}
+.sub-right{display:flex;align-items:center;gap:8px}
+.sub-stats{font-size:13px;color:var(--muted)}
+
+/* inner sublist indentation */
+.sublist.inner{background:transparent;padding-left:6px;padding-top:8px}
+.subitem.leaf .leaf-link{font-weight:600}
+
+/* links and goto */
+.leaf-link{color:var(--accent);text-decoration:none}
+.goto{color:var(--muted);text-decoration:none;font-size:18px}
+
+/* Hover / active states */
+.subitem:hover{background:#fbfcff}
+.toggle:focus, .sub-toggle:focus, .period:focus, .leaf-link:focus{outline:3px solid rgba(37,122,230,0.14);outline-offset:2px;border-radius:10px}
+
+/* @media(min-width:600px){
+  .wrap{
+    padding:24px;
+  }
+  .categories{
+    gap:14px
+  }
+} */
